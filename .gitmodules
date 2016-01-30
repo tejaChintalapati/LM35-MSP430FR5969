@@ -1,0 +1,3 @@
+[submodule "MSP430FR5969-Sensors"]
+	path = MSP430FR5969-Sensors
+	url = https://github.com/tejaChintalapati/MSP430FR5969-Sensors

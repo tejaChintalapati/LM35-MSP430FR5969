@@ -1,7 +1,7 @@
 /*
  * 	ADCInitialisation.c
  *
- *  Created on: Jan 27, 2016
+ *  Created on: Jan 30, 2016
  *  Author: Teja Chintalapati
  *	Contact: teja.chintalapati@gmail.com
  *	Description: This file will configure ADC
@@ -65,8 +65,8 @@ void ADCConfiguration(void)
 	 * ADC is operating in Single Ended Mode
 	 */
 	ADC12_B_configureMemoryParam configureMemoryParam = {0};
-	configureMemoryParam.memoryBufferControlIndex 	= 		ADC12_B_MEMORY_2;
-	configureMemoryParam.inputSourceSelect 			= 		ADC12_B_INPUT_A2;
+	configureMemoryParam.memoryBufferControlIndex 	= 		ADCMEMORY;
+	configureMemoryParam.inputSourceSelect 			= 		ADCINPUTSOURCESELECT;
 	configureMemoryParam.refVoltageSourceSelect 	= 		ADC12_B_VREFPOS_AVCC_VREFNEG_VSS;
 	configureMemoryParam.endOfSequence 				=		ADC12_B_NOTENDOFSEQUENCE;
 	configureMemoryParam.windowComparatorSelect 	= 		ADC12_B_WINDOW_COMPARATOR_DISABLE;
@@ -74,10 +74,10 @@ void ADCConfiguration(void)
 	ADC12_B_configureMemory( ADC12_B_BASE, &configureMemoryParam );
 
 	//Clearing previous ADC12MEM2 Interrupt.
-	ADC12_B_clearInterrupt( ADC12_B_BASE, 0, ADC12_B_IFG2 );
+	ADC12_B_clearInterrupt( ADC12_B_BASE, 0, ADCIFG );
 
 	//Enable memory buffer 2 interrupt
-	ADC12_B_enableInterrupt( ADC12_B_BASE, ADC12_B_IE2, 0, 0 );
+	ADC12_B_enableInterrupt( ADC12_B_BASE, ADCIE, 0, 0 );
 }
 
 /******************************************************************************
@@ -102,11 +102,7 @@ void ADC12_ISR(void)
     case 10: break;                         // Vector 10:  ADC12BIN
     case 12: break;                         // Vector 12:  ADC12BMEM0 Interrupt
     case 14: break;                         // Vector 14:  ADC12BMEM1
-    case 16:								// Vector 16:  ADC12BMEM2
-    	//Reading ADC12BMEM2 Value. To avoid function call in ISR, I've copied and pasted the beow code from "ADC12_B_getResults"
-    	ADCValue = HWREG16(ADC12_B_BASE + (OFS_ADC12MEM0 + ADC12_B_MEMORY_2));
-    	__bic_SR_register_on_exit(LPM3_bits);   // Exit active CPU
-    	break;
+    case 16:	 break;						   // Vector 16:  ADC12BMEM2
     case 18: break;                         // Vector 18:  ADC12BMEM3
     case 20: break;                         // Vector 20:  ADC12BMEM4
     case 22: break;                         // Vector 22:  ADC12BMEM5
@@ -117,7 +113,10 @@ void ADC12_ISR(void)
     case 32: break;                         // Vector 32:  ADC12BMEM10
     case 34: break;                         // Vector 34:  ADC12BMEM11
     case 36: break;                         // Vector 36:  ADC12BMEM12
-    case 38: break;                         // Vector 38:  ADC12BMEM13
+    case 38:                        		   // Vector 38:  ADC12BMEM13
+    	ADCValue = HWREG16(ADC12_B_BASE + (OFS_ADC12MEM0 + ADCMEMORY));
+    	__bic_SR_register_on_exit(LPM3_bits);   // Exit active CPU
+    	break;
     case 40: break;                         // Vector 40:  ADC12BMEM14
     case 42: break;                         // Vector 42:  ADC12BMEM15
     case 44: break;                         // Vector 44:  ADC12BMEM16

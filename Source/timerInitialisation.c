@@ -24,7 +24,7 @@ void timerConfiguration(void)
 	//Setup Timer
 	Timer_A_initContinuousModeParam initTimerAParam = {0};
 	initTimerAParam.clockSource = 				TIMER_A_CLOCKSOURCE_ACLK;
-	initTimerAParam.clockSourceDivider = 		TIMER_A_CLOCKSOURCE_DIVIDER_4;
+	initTimerAParam.clockSourceDivider = 		TIMER_A_CLOCKSOURCE_DIVIDER_1;
 	initTimerAParam.timerInterruptEnable_TAIE =	TIMER_A_TAIE_INTERRUPT_ENABLE;
 	initTimerAParam.timerClear = 				TIMER_A_DO_CLEAR;
 	initTimerAParam.startTimer = 				false;

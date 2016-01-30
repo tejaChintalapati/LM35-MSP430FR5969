@@ -1,7 +1,7 @@
 /*
  * 	pinInitialisation.c
  *
- *  Created on: Jan 27, 2016
+ *  Created on: Jan 30, 2016
  *  Author: Teja Chintalapati
  *	Contact: teja.chintalapati@gmail.com
  *	Description: This file will initialise all pins required in this program
@@ -27,6 +27,6 @@ void pinConfiguration(void)
     GPIO_setAsPeripheralModuleFunctionInputPin( GPIO_PORT_PJ, GPIO_PIN4 + GPIO_PIN5, GPIO_PRIMARY_MODULE_FUNCTION );
 
     //Set P1.2 as Ternary Module Function Output. We'll connect LM35 Output pin to this pin
-    GPIO_setAsPeripheralModuleFunctionOutputPin( GPIO_PORT_P1, GPIO_PIN2, GPIO_TERNARY_MODULE_FUNCTION );
+    GPIO_setAsPeripheralModuleFunctionOutputPin( ADCPORT, ADCPIN, GPIO_TERNARY_MODULE_FUNCTION );
 
 }
