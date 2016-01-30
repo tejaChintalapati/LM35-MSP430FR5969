@@ -3,7 +3,8 @@
  *	Created on: Jan 27, 2016
  *  Author: Teja Chintalapati
  *	Contact: teja.chintalapati@gmail.com
- *	Description: This program will read temperature reading from LM35 Temperature Sensor
+ *	Description: This program will read temperature reading from LM35 Temperature Sensor once every 8 seconds
+ *	Modules used: Hardware Multiplier, TimerA, ADC
  *
  */
 
@@ -11,7 +12,6 @@
  * INCLUDES
  */
 
-#include <driverlib.h>
 #include "mainApp.h"
 
 /******************************************************************************
